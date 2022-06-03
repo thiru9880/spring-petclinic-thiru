@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Source Code') {
             steps {
-                git url: 'https://github.com/thiru9880/spring-petclinic-thiru.git'
+                git url: 'https://github.com/thiru9880/spring-petclinic-thiru.git',
                 branch: 'main'
             }
 
