@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'nodejs' }
     options { 
         timeout(time: 1, unit: 'HOURS')
         retry(2) 
