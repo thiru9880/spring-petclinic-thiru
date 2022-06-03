@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build the Code and sonarqube-analysis') {
             steps {
-                withSonarQubeEnv('SONAR-1') {
+                withSonarQubeEnv('sonar-demo') {
                     sh script: "mvn ${params.GOAL} sonar:sonar"
                 }
 
