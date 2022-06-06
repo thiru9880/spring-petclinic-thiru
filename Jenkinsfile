@@ -16,12 +16,28 @@ pipeline {
                 git url: 'https://github.com/thiru9880/spring-petclinic-thiru.git',
                 branch: 'main'
             }
+        }
+        stage('artifactory'){
+            steps{
+                rtMavenDeployer (
+                    id: 'spc-deployer',
+                    serverId: 'JFROG-LOCAL',
+                    releaseRepo: 'new-repo-libs-release-local',
+                    snapshotRepo: 'new-repo-libs-snapshot-local',
+                    )
+                rtMavenRun (
+                    tool: 'MVN_PATH',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: 'spc-deployer',
+                    )
 
+            }
         }
         stage('Build the Code and sonarqube-analysis') {
             steps {
                 withSonarQubeEnv('sonar-demo') {
-                    sh script: "mvn ${params.GOAL} sonar:sonar"
+                    sh script: "mvn package sonar:sonar"
                 }
 
             }
